@@ -4,51 +4,87 @@ using UnityEngine;
 
 public class LifeCycle : MonoBehaviour
 {
-    /*
-    1. 초기화
-    1.5 활성화
-    2. 물리 연산
-    3. 게임 로직
-    3.5 비활성화
-    4. 해체
-    */
-    // Awake() : 게임 오브젝트 생성할 때 최소 실행
-    void Awake() {
-        Debug.Log("플레이어 데이터가 준비되었습니다.");    
-    }
 
-    void OnEnable() {
-        Debug.Log("플레이어가 로그인 했습니다.");
-    }
-
-    // Start() : 업데이트 시작 직전, 최초 실행
     void Start() {
-        Debug.Log("사냥 장비를 챙겼습니다.");
+        
     }
 
-    // FixedUpdate() : 물리 연산 업데이트 -> cpu 부화 많음
-    void FixedUpdate() {
-        Debug.Log("이동~~");
-    }
-
-    // Update() : 게임 로직 업데이트 (물리 연산 제외)
     void Update() {
-        Debug.Log("몬스터 사냥~");
-    }
+        /**
+        if(Input.anyKeyDown){
+            Debug.Log("플레이어가 아무 키를 눌렀습니다.");
+        }
 
-    // LateUpadte() : 모든 업데이트 끝난 후 마지막으로 호출되는 함수
-    void LateUpdate() {
-        Debug.Log("경험치 획득.");
-    }
 
-    void OnDisable() {
-        Debug.Log("플레이어가 로그아웃했습니다.");    
-    }
+        // 키보드
 
-    // OnDestroy() : 게임 오브젝트가 삭제될 때
-    void OnDestroy() {
-        Debug.Log("플레이어 데이터를 해제하였습니다.");  
+        if(Input.GetKeyDown(KeyCode.Return)){
+            Debug.Log("아이템을 구입하였습니다.");
+        }
+
+        if(Input.GetKey(KeyCode.LeftArrow)){
+            Debug.Log("왼쪽으로 이동 중.");
+        }
+
+        if(Input.GetKeyUp(KeyCode.RightArrow)){
+            Debug.Log("오른쪽 이동을 멈추었습니다.");
+        }
+
+
+        // 마우스
+
+        if(Input.GetMouseButtonDown(0)){
+            Debug.Log("미사일 발사!");
+        }
+
+        if(Input.GetMouseButton(0)){
+            Debug.Log("미사일 모으는 중...");
+        }
+
+        if(Input.GetMouseButtonUp(0)){
+            Debug.Log("슈퍼 미사일 발사!!");
+        }
+
+        // Input
+
+        if(Input.GetButtonDown("Jump")){
+            Debug.Log("점프!");
+        }
+
+        if(Input.GetButton("Horizontal")){
+            Debug.Log("횡 이동 중..." + Input.GetAxisRaw("Horizontal"));
+        }
+
+        if(Input.GetButtonUp("Jump")){
+            Debug.Log("슈퍼 점프!!");
+        }*/
+
+        Vector3 vec = new Vector3(Input.GetAxis("Horizontal")/10, Input.GetAxis("Vertical")/10, 0);     // 벡터 값
+        transform.Translate(vec);
+
     }
 
 
 }
+
+
+/*
+Input : 게임 내 입력을 관리하는 클래스
+        
+anyKeyDown : 아무 입력을 최초로 받을 때 true
+anyKey : 아무 입력을 받으면 true
+
+키 입력 종류 :  1. Down 2. Stay 3. Up
+
+
+GetKey : 키보드 버튼 입력을 받으면 true 
+GetMouse : 마우스 버튼 입력을 받으면 true
+GetButton : Input 버튼 입력을 받으면 true
+
+GetAxis : 수평, 수직 버튼 입력을 받으면 float
+
+
+오브젝트는 변수 transform을 항상 가지고 있음
+
+Translate : 벡터 값을 현재 위치에 더하는 함수
+*/
