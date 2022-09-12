@@ -4,87 +4,43 @@ using UnityEngine;
 
 public class LifeCycle : MonoBehaviour
 {
+    Vector3 target = new Vector3(8, 1.5f, 0);
 
-    void Start() {
-        
-    }
-
+    
     void Update() {
-        /**
-        if(Input.anyKeyDown){
-            Debug.Log("플레이어가 아무 키를 눌렀습니다.");
-        }
+        
+        // 1. MoveTowards
+        /*
+        transform.position = Vector3.MoveTowards(transform.position, target, 2f);*/
 
 
-        // 키보드
 
-        if(Input.GetKeyDown(KeyCode.Return)){
-            Debug.Log("아이템을 구입하였습니다.");
-        }
+        // 2.SmoothDamp
+        /*
+        Vector3 velo = Vector3.zero;
+        transform.position = Vector3.SmoothDamp(transform.position, target, ref velo, 0.1f);
+        */
 
-        if(Input.GetKey(KeyCode.LeftArrow)){
-            Debug.Log("왼쪽으로 이동 중.");
-        }
+        // 3. Lerp (선형 보간)
+        /*
+        transform.position = Vector3.Lerp(transform.position, target, 0.1f);
+        */
 
-        if(Input.GetKeyUp(KeyCode.RightArrow)){
-            Debug.Log("오른쪽 이동을 멈추었습니다.");
-        }
-
-
-        // 마우스
-
-        if(Input.GetMouseButtonDown(0)){
-            Debug.Log("미사일 발사!");
-        }
-
-        if(Input.GetMouseButton(0)){
-            Debug.Log("미사일 모으는 중...");
-        }
-
-        if(Input.GetMouseButtonUp(0)){
-            Debug.Log("슈퍼 미사일 발사!!");
-        }
-
-        // Input
-
-        if(Input.GetButtonDown("Jump")){
-            Debug.Log("점프!");
-        }
-
-        if(Input.GetButton("Horizontal")){
-            Debug.Log("횡 이동 중..." + Input.GetAxisRaw("Horizontal"));
-        }
-
-        if(Input.GetButtonUp("Jump")){
-            Debug.Log("슈퍼 점프!!");
-        }*/
-
-        Vector3 vec = new Vector3(Input.GetAxis("Horizontal")/10, Input.GetAxis("Vertical")/10, 0);     // 벡터 값
-        transform.Translate(vec);
+        // 4. Slerp (구면 선형 보간)
+        transform.position = Vector3.Slerp(transform.position, target, 0.05f);
 
     }
 
+    
 
 }
 
 
-/*
-Input : 게임 내 입력을 관리하는 클래스
-        
-anyKeyDown : 아무 입력을 최초로 받을 때 true
-anyKey : 아무 입력을 받으면 true
-
-키 입력 종류 :  1. Down 2. Stay 3. Up
 
 
-GetKey : 키보드 버튼 입력을 받으면 true 
-GetMouse : 마우스 버튼 입력을 받으면 true
-GetButton : Input 버튼 입력을 받으면 true
-
-GetAxis : 수평, 수직 버튼 입력을 받으면 float
-
-
-오브젝트는 변수 transform을 항상 가지고 있음
-
-Translate : 벡터 값을 현재 위치에 더하는 함수
+/**
+MoveTowards(현재위치, 목표위치, 속도) 
+SmoothDamp(현재위치, 목표위치, 참조 속도, 속도)
+Lerp: 선형 보간, SmoothDamp보다 감속시간이 김
+Slerp: 구면 선형 보간, 호를 그리며 이동
 */
